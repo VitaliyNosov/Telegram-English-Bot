@@ -93,8 +93,6 @@ body {
   overflow: hidden;
   line-height: 1.4;
   font-size: 15px;
-  border: 2.5px solid var(--color-primary);
-  box-sizing: border-box;
 }
 
 /* Контейнер приложения для мобильного вида */
@@ -110,13 +108,6 @@ body {
   position: relative;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-}
-
-@media (min-width: 481px) {
-  #app-container {
-    border-left: 2px solid var(--color-primary);
-    border-right: 2px solid var(--color-primary);
-  }
 }
 
 /* ==========================================================================
