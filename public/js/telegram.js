@@ -17,9 +17,9 @@ class TelegramService {
         this.tg.ready();
         this.tg.expand();
 
-        // Цвета заголовка и фона
+        // По умолчанию изначально цвет заголовка белый (#FFFFFF) для гармоничного отображения текста
         if (this.tg.setHeaderColor) {
-          this.tg.setHeaderColor('#58CC02');
+          this.tg.setHeaderColor('#FFFFFF');
         }
 
         // Поддержка смены темы (Dark / Light)
@@ -76,7 +76,7 @@ class TelegramService {
       document.body.classList.remove('dark-mode');
       if (this.tg) {
         try {
-          if (this.tg.setHeaderColor) this.tg.setHeaderColor('#58CC02');
+          if (this.tg.setHeaderColor) this.tg.setHeaderColor('#FFFFFF');
           if (this.tg.setBackgroundColor) this.tg.setBackgroundColor('#F7F7F7');
         } catch (e) {}
       }

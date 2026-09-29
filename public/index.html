@@ -59,15 +59,19 @@
       <!-- Active Topic Pill Bar -->
       <div class="chat-topic-banner">
         <div class="topic-indicator">
-          <span>Current Scenario:</span>
-          <span id="active-topic-pill" class="topic-pill">
+          <span class="topic-label">Scenario:</span>
+          <span id="active-topic-pill" class="topic-pill" title="Current Scenario">
             <i class="fa-solid fa-mug-hot topic-pill-icon"></i>
             <span id="active-topic-text">Coffee Shop</span>
           </span>
         </div>
         <div class="chat-banner-actions">
-          <button id="change-topic-btn" class="banner-action-btn" title="Change Scenario">Change</button>
-          <button id="new-chat-btn" class="banner-action-btn new-chat" title="Start fresh conversation">New Practice</button>
+          <button type="button" id="change-topic-btn" class="banner-action-btn" title="Change Scenario">
+            <i class="fa-solid fa-repeat"></i> <span>Change</span>
+          </button>
+          <button type="button" id="new-chat-btn" class="banner-action-btn new-chat" title="Start fresh practice">
+            <i class="fa-solid fa-plus"></i> <span>New</span>
+          </button>
         </div>
       </div>
 

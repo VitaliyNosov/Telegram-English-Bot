@@ -9,7 +9,7 @@
 // Стандартные приветствия для каждой темы
 const TOPIC_STARTERS = {
   coffee_shop: {
-    title: 'Coffee Shop Order',
+    title: 'Coffee Shop',
     icon: 'fa-mug-hot',
     text: "Hi there! Welcome to our English practice. Let's imagine you just walked into a cozy coffee shop in New York. What would you like to order today?",
     tip: "Try using \"I'd like to get...\" or \"Could I have a...\" to sound extra polite!"
@@ -27,7 +27,7 @@ const TOPIC_STARTERS = {
     tip: "Start confidently with: \"Sure, I have experience in...\""
   },
   small_talk: {
-    title: 'Casual Small Talk',
+    title: 'Small Talk',
     icon: 'fa-comments',
     text: "Hey! What a great day today, isn't it? How has your week been going so far?",
     tip: "Natural answers: \"Not bad at all!\" or \"Pretty busy, but going well!\""
