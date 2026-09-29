@@ -4,7 +4,8 @@
   "description": "Telegram Mini App for practicing English with AI and speech synthesis in Duolingo style",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "bot": "node bot.js"
   },
   "keywords": [
     "telegram-mini-app",
