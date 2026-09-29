@@ -24,3 +24,6 @@ logs/
 .idea/
 *.sublime-project
 *.sublime-workspace
+
+# Local private docs
+docs/

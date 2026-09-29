@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>English AI Tutor • Duolingo Style</title>
+  
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+  <!-- Google Fonts: Nunito (Friendly Rounded Typeface) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 (Vector Icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Duolingo Inspired Style System -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div id="app-container">
+
+    <!-- ==========================================
+         TOP HEADER (Duolingo Status Bar)
+         ========================================== -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="mascot-avatar">
+          <img src="assets/duo.png" alt="Duo Owl" onerror="this.src='https://placehold.co/100x100/58CC02/FFFFFF?text=Duo'">
+        </div>
+        <div class="brand-text">
+          <h1>DUO AI</h1>
+          <div class="brand-badge">English Tutor</div>
+        </div>
+      </div>
+
+      <div class="header-stats">
+        <div class="stat-pill streak" title="Daily Streak">
+          <i class="fa-solid fa-fire icon-duo-green"></i>
+          <span id="stat-streak-val">3</span>
+        </div>
+        <div class="stat-pill xp" title="Total XP">
+          <i class="fa-solid fa-star icon-duo-green"></i>
+          <span id="stat-xp-val">120</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==========================================
+         SCREEN 1: CHAT & PRACTICE (Default Active)
+         ========================================== -->
+    <main id="screen-chat" class="screen active">
+      <!-- Active Topic Pill Bar -->
+      <div class="chat-topic-banner">
+        <div class="topic-indicator">
+          <span>Current Scenario:</span>
+          <span id="active-topic-pill" class="topic-pill">
+            <i class="fa-solid fa-mug-hot topic-pill-icon"></i>
+            <span id="active-topic-text">Coffee Shop</span>
+          </span>
+        </div>
+        <div class="chat-banner-actions">
+          <button id="change-topic-btn" class="banner-action-btn" title="Change Scenario">Change</button>
+          <button id="new-chat-btn" class="banner-action-btn new-chat" title="Start fresh conversation">New Practice</button>
+        </div>
+      </div>
+
+      <!-- Messages Area -->
+      <div id="chat-messages-container" class="chat-messages">
+        <!-- Messages loaded dynamically -->
+      </div>
+
+      <!-- Chat Bottom Input Bar -->
+      <form id="chat-input-form" class="chat-input-bar">
+        <button type="button" id="btn-mic-record" class="btn-3d btn-primary btn-icon-3d" title="Speak with Voice">
+          <i class="fa-solid fa-microphone"></i>
+        </button>
+        <div class="chat-input-wrapper">
+          <input type="text" id="chat-text-input" class="chat-input" placeholder="Type your answer in English..." autocomplete="off">
+        </div>
+        <button type="submit" id="btn-send-message" class="btn-3d btn-primary btn-icon-3d" title="Send message">
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
+      </form>
+    </main>
+
+    <!-- ==========================================
+         SCREEN 2: TOPICS & SCENARIOS
+         ========================================== -->
+    <section id="screen-topics" class="screen">
+      <div class="topics-header">
+        <h2 class="section-title">Practice Scenarios</h2>
+        <p class="section-subtitle">Pick a realistic situation to roleplay with Duo</p>
+      </div>
+
+      <div class="topics-grid">
+        <!-- Card 1: Coffee Shop -->
+        <div class="topic-card selected" data-topic="coffee_shop">
+          <div class="topic-card-left">
+            <div class="topic-icon">
+              <i class="fa-solid fa-mug-hot"></i>
+            </div>
+            <div class="topic-info">
+              <h3>Coffee Shop Order</h3>
+              <p>Ordering drinks & pastries politely</p>
+              <span class="topic-level-badge a1">A1-A2 • Beginner</span>
+            </div>
+          </div>
+          <div class="topic-card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <!-- Card 2: Airport & Travel -->
+        <div class="topic-card" data-topic="airport_travel">
+          <div class="topic-card-left">
+            <div class="topic-icon">
+              <i class="fa-solid fa-plane"></i>
+            </div>
+            <div class="topic-info">
+              <h3>Airport & Travel</h3>
+              <p>Check-in, security & boarding gates</p>
+              <span class="topic-level-badge a1">A1-A2 • Beginner</span>
+            </div>
+          </div>
+          <div class="topic-card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <!-- Card 3: Job Interview -->
+        <div class="topic-card" data-topic="job_interview">
+          <div class="topic-card-left">
+            <div class="topic-icon">
+              <i class="fa-solid fa-briefcase"></i>
+            </div>
+            <div class="topic-info">
+              <h3>Job Interview</h3>
+              <p>Talking about experience & strengths</p>
+              <span class="topic-level-badge b2">B2-C1 • Advanced</span>
+            </div>
+          </div>
+          <div class="topic-card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <!-- Card 4: Casual Small Talk -->
+        <div class="topic-card" data-topic="small_talk">
+          <div class="topic-card-left">
+            <div class="topic-icon">
+              <i class="fa-solid fa-comments"></i>
+            </div>
+            <div class="topic-info">
+              <h3>Casual Small Talk</h3>
+              <p>Weekend plans, hobbies & weather</p>
+              <span class="topic-level-badge b1">B1-B2 • Intermediate</span>
+            </div>
+          </div>
+          <div class="topic-card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+
+        <!-- Card 5: Grammar Clinic -->
+        <div class="topic-card" data-topic="grammar_clinic">
+          <div class="topic-card-left">
+            <div class="topic-icon">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="topic-info">
+              <h3>Grammar Clinic</h3>
+              <p>Detailed analysis of tricky tenses</p>
+              <span class="topic-level-badge b1">All Levels</span>
+            </div>
+          </div>
+          <div class="topic-card-arrow"><i class="fa-solid fa-chevron-right"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SCREEN 3: PROGRESS & HISTORY
+         ========================================== -->
+    <section id="screen-progress" class="screen">
+      <div class="topics-header">
+        <h2 class="section-title">Your Progress</h2>
+        <p class="section-subtitle">Review previous conversations and track your learning</p>
+      </div>
+
+      <!-- Stats Overview Card -->
+      <div class="progress-stats-card">
+        <div class="progress-stat-col">
+          <div class="progress-stat-value" id="progress-total-practices">0</div>
+          <div class="progress-stat-label">Practices</div>
+        </div>
+        <div class="progress-stat-divider"></div>
+        <div class="progress-stat-col">
+          <div class="progress-stat-value" id="progress-total-messages">0</div>
+          <div class="progress-stat-label">Messages</div>
+        </div>
+        <div class="progress-stat-divider"></div>
+        <div class="progress-stat-col">
+          <div class="progress-stat-value" id="progress-total-xp">120</div>
+          <div class="progress-stat-label">Total XP</div>
+        </div>
+      </div>
+
+      <!-- Sessions List Header -->
+      <div class="progress-list-header">
+        <div class="settings-group-title" style="margin: 0;">Completed Sessions</div>
+        <button type="button" id="btn-clear-all-history" class="clear-all-link" style="display: none;">Clear All</button>
+      </div>
+
+      <!-- Sessions List Container -->
+      <div id="progress-sessions-container" class="progress-sessions-list">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SCREEN 4: SETTINGS & BYOK
+         ========================================== -->
+    <section id="screen-settings" class="screen">
+      <div class="topics-header">
+        <h2 class="section-title">Settings</h2>
+        <p class="section-subtitle">Customize your AI model, voice and learning level</p>
+      </div>
+
+      <!-- Group 1: Google Gemini API (BYOK) -->
+      <div class="settings-group">
+        <div class="settings-group-title">AI Engine (Google Gemini)</div>
+        <div class="settings-card">
+          <div>
+            <label class="input-label" for="settings-api-key">
+              <span>Google Gemini API Key</span>
+              <a href="https://aistudio.google.com/app/apikey" target="_blank" class="input-label-link">Get Free Key ↗</a>
+            </label>
+            <div class="password-input-wrapper">
+              <input type="password" id="settings-api-key" class="settings-input" placeholder="AIzaSy...">
+              <button type="button" id="btn-toggle-key-visibility" class="toggle-password-btn" aria-label="Toggle password visibility">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+            <div id="api-key-status-badge" class="status-badge empty">No Key Set</div>
+            <button type="button" id="btn-test-connection" class="btn-3d btn-secondary" style="padding: 8px 14px; font-size: 12px;">
+              Test Connection
+            </button>
+          </div>
+
+          <div>
+            <label class="input-label" for="settings-model">Google AI Model</label>
+            <select id="settings-model" class="settings-select">
+              <option value="gemini-flash-lite-latest" selected>Gemini Flash Lite (Fast & Natural • Recommended)</option>
+              <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash Lite</option>
+              <option value="gemini-3.8-flash">Gemini 3.8 Flash</option>
+              <option value="gemma-4-26b-a4b-it">Gemma 4 26B (Fallback)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Group 2: Learning Level -->
+      <div class="settings-group">
+        <div class="settings-group-title">Your English Level</div>
+        <div class="settings-card">
+          <div class="level-pills-row">
+            <button type="button" class="level-pill-btn" data-level="A1">A1-A2<br><small>Beginner</small></button>
+            <button type="button" class="level-pill-btn active" data-level="B1">B1-B2<br><small>Intermediate</small></button>
+            <button type="button" class="level-pill-btn" data-level="C1">C1-C2<br><small>Advanced</small></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Group 3: Voice & Speech Synthesis -->
+      <div class="settings-group">
+        <div class="settings-group-title">Speech & Pronunciation</div>
+        <div class="settings-card">
+          <div>
+            <label class="input-label" for="settings-voice-accent">Tutor Accent</label>
+            <select id="settings-voice-accent" class="settings-select">
+              <option value="en-US" selected>American English (US)</option>
+              <option value="en-GB">British English (UK)</option>
+            </select>
+          </div>
+          <div>
+            <label class="input-label" for="settings-voice-gender">Voice Style</label>
+            <select id="settings-voice-gender" class="settings-select">
+              <option value="female" selected>Female Voice</option>
+              <option value="male">Male Voice</option>
+            </select>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 4px;">
+            <label class="input-label" for="settings-autoplay-audio" style="cursor: pointer; margin: 0;">
+              <span>Auto-play Voice Replies</span>
+            </label>
+            <input type="checkbox" id="settings-autoplay-audio" checked style="width: 20px; height: 20px; accent-color: var(--color-primary); cursor: pointer;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Save Button (Clean, no emoji) -->
+      <button type="button" id="btn-save-settings" class="btn-3d btn-primary btn-full" style="margin-top: 10px;">
+        Save Settings
+      </button>
+    </section>
+
+    <!-- ==========================================
+         BOTTOM NAVIGATION BAR (TABS)
+         ========================================== -->
+    <nav class="bottom-nav">
+      <button type="button" class="nav-tab-btn active" data-screen="screen-chat">
+        <span class="nav-tab-icon"><i class="fa-solid fa-comment-dots"></i></span>
+        <span class="nav-tab-label">Chat</span>
+      </button>
+      <button type="button" class="nav-tab-btn" data-screen="screen-topics">
+        <span class="nav-tab-icon"><i class="fa-solid fa-compass"></i></span>
+        <span class="nav-tab-label">Topics</span>
+      </button>
+      <button type="button" class="nav-tab-btn" data-screen="screen-progress">
+        <span class="nav-tab-icon"><i class="fa-solid fa-clock-rotate-left"></i></span>
+        <span class="nav-tab-label">Progress</span>
+      </button>
+      <button type="button" class="nav-tab-btn" data-screen="screen-settings">
+        <span class="nav-tab-icon"><i class="fa-solid fa-gear"></i></span>
+        <span class="nav-tab-label">Settings</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/telegram.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/speech-service.js"></script>
+  <script src="js/ai-service.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

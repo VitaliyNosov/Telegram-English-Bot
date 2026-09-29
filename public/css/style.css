@@ -1,0 +1,1200 @@
+/* ==========================================================================
+   DUOLINGO-INSPIRED DESIGN SYSTEM & CSS VARIABLES
+   Все цвета вынесены в переменные для быстрой кастомизации палитры.
+   ========================================================================== */
+
+:root {
+  /* --- Фирменная палитра логотипа Duolingo --- */
+  --color-primary: #58CC02;            /* Основной зеленый цвет перьев */
+  --color-primary-dark: #46A302;       /* Тень для 3D кнопок (Dark Green) */
+  --color-primary-light: #79D600;      /* Светло-зеленый акцент / блик */
+  --color-primary-soft: rgba(88, 204, 2, 0.12); /* Мягкий фон под карточки */
+
+  /* --- Дополнительные фирменные цвета --- */
+  --color-accent-orange: #FF9600;      /* Оранжевый (клюв и лапки Дуо) */
+  --color-accent-orange-dark: #E07A00; /* Тень оранжевых кнопок */
+  --color-accent-orange-soft: rgba(255, 150, 0, 0.14);
+
+  --color-accent-blue: #1CB0F6;        /* Небесно-голубой (подсказки, инфо) */
+  --color-accent-blue-dark: #1899D6;
+  --color-accent-blue-soft: rgba(28, 176, 246, 0.12);
+
+  --color-accent-yellow: #FFC800;      /* Желтый (огонь серии, звезды) */
+  --color-accent-yellow-dark: #E5A500;
+
+  --color-accent-red: #FF4B4B;         /* Красный (ошибки, сброс) */
+  --color-accent-red-dark: #EA2B2B;
+
+  --color-accent-purple: #CE82FF;      /* Фиолетовый (премиум / спец. темы) */
+  --color-accent-purple-dark: #A855F7;
+
+  /* --- Нейтральные тона и поверхности (Светлая тема) --- */
+  --color-bg: #FFFFFF;
+  --color-bg-page: #F7F7F7;
+  --color-card-bg: #FFFFFF;
+  --color-card-border: #E5E5E5;
+  --color-card-border-bottom: #D0D0D0;
+
+  --color-text-main: #3C3C3C;
+  --color-text-muted: #777777;
+  --color-text-light: #AFAFAF;
+  --color-text-on-primary: #FFFFFF;
+
+  /* --- Шрифты, радиусы и тени --- */
+  --font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-full: 9999px;
+
+  --btn-3d-offset: 4px;
+  --btn-3d-offset-active: 1px;
+  --transition-speed: 0.15s;
+}
+
+/* --- Поддержка тёмной темы (Dark Mode / Telegram Dark) --- */
+body.dark-mode {
+  --color-bg: #131F24;
+  --color-bg-page: #0F171A;
+  --color-card-bg: #1B2A32;
+  --color-card-border: #2B3D47;
+  --color-card-border-bottom: #202F38;
+
+  --color-text-main: #FFFFFF;
+  --color-text-muted: #9BB0BA;
+  --color-text-light: #6A7E88;
+
+  --color-primary-soft: rgba(88, 204, 2, 0.2);
+  --color-accent-orange-soft: rgba(255, 150, 0, 0.2);
+  --color-accent-blue-soft: rgba(28, 176, 246, 0.2);
+}
+
+/* ==========================================================================
+   RESET & BASE STYLES
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg-page);
+  color: var(--color-text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  line-height: 1.4;
+  font-size: 15px;
+}
+
+/* Контейнер приложения для мобильного вида */
+#app-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+  position: relative;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   HEADER (DUOLINGO STATUS BAR)
+   ========================================================================== */
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-bg);
+  border-bottom: 2px solid var(--color-card-border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mascot-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-soft);
+  border: 2px solid var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.mascot-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand-text h1 {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: -0.3px;
+  line-height: 1.1;
+}
+
+.brand-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.header-stats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-duo-green {
+  color: var(--color-primary);
+}
+
+.topic-pill-icon {
+  color: var(--color-primary);
+  margin-right: 6px;
+  font-size: 13px;
+}
+
+.stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-page);
+  border: 1.5px solid var(--color-card-border);
+  color: var(--color-text-main);
+}
+
+/* ==========================================================================
+   SCREENS & VIEWS
+   ========================================================================== */
+
+.screen {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 16px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.screen.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   DUOLINGO 3D BUTTONS
+   ========================================================================== */
+
+.btn-3d {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-family);
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+/* Зеленая кнопка */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
+  box-shadow: 0 var(--btn-3d-offset) 0 var(--color-primary-dark);
+}
+
+.btn-primary:active {
+  transform: translateY(var(--btn-3d-offset));
+  box-shadow: 0 0 0 var(--color-primary-dark);
+}
+
+/* Оранжевая кнопка */
+.btn-orange {
+  background-color: var(--color-accent-orange);
+  color: #FFFFFF;
+  box-shadow: 0 var(--btn-3d-offset) 0 var(--color-accent-orange-dark);
+}
+
+.btn-orange:active {
+  transform: translateY(var(--btn-3d-offset));
+  box-shadow: 0 0 0 var(--color-accent-orange-dark);
+}
+
+/* Голубая кнопка */
+.btn-blue {
+  background-color: var(--color-accent-blue);
+  color: #FFFFFF;
+  box-shadow: 0 var(--btn-3d-offset) 0 var(--color-accent-blue-dark);
+}
+
+.btn-blue:active {
+  transform: translateY(var(--btn-3d-offset));
+  box-shadow: 0 0 0 var(--color-accent-blue-dark);
+}
+
+/* Вторичная кнопка (Белая с серой рамкой) */
+.btn-secondary {
+  background-color: var(--color-bg);
+  color: var(--color-text-main);
+  border: 2px solid var(--color-card-border);
+  box-shadow: 0 var(--btn-3d-offset) 0 var(--color-card-border-bottom);
+}
+
+.btn-secondary:active {
+  transform: translateY(var(--btn-3d-offset));
+  box-shadow: 0 0 0 var(--color-card-border-bottom);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+/* Круглые кнопки действий (звук, микрофон) */
+.btn-icon-3d {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   SCREEN 1: CHAT
+   ========================================================================== */
+
+#screen-chat {
+  padding: 0;
+  overflow: hidden;
+}
+
+.chat-topic-banner {
+  background: var(--color-bg-page);
+  border-bottom: 1.5px solid var(--color-card-border);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topic-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.topic-pill {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-weight: 800;
+}
+
+.chat-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.banner-action-btn {
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-primary);
+  background: none;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  transition: all 0.15s ease;
+}
+
+.banner-action-btn:hover, .banner-action-btn:active {
+  background: var(--color-primary-soft);
+}
+
+.banner-action-btn.new-chat {
+  color: var(--color-primary-dark);
+  background: var(--color-primary-soft);
+  border-color: rgba(88, 204, 2, 0.3);
+}
+
+.banner-action-btn.new-chat:hover, .banner-action-btn.new-chat:active {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.chat-messages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+}
+
+/* Сообщения */
+.message-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  max-width: 90%;
+}
+
+.message-row.bot {
+  align-self: flex-start;
+}
+
+.message-row.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-soft);
+  border: 1.5px solid var(--color-primary);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.message-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-avatar-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  box-shadow: 0 3px 0 var(--color-primary-dark);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.message-bubble {
+  padding: 12px 16px;
+  border-radius: var(--radius-lg);
+  font-size: 15px;
+  line-height: 1.45;
+  position: relative;
+}
+
+/* Пузырь бота (Duolingo стиль) */
+.message-row.bot .message-bubble {
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-card-border);
+  box-shadow: 0 3px 0 var(--color-card-border-bottom);
+  border-bottom-left-radius: 4px;
+  color: var(--color-text-main);
+}
+
+/* Пузырь пользователя */
+.message-row.user .message-bubble {
+  background-color: var(--color-primary);
+  color: var(--color-text-on-primary);
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 3px 0 var(--color-primary-dark);
+}
+
+.message-bubble p {
+  user-select: text;
+}
+
+.message-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.audio-play-btn {
+  background: var(--color-primary-soft);
+  border: 1.5px solid var(--color-primary);
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.audio-play-btn:active {
+  transform: scale(0.95);
+}
+
+.audio-play-btn.playing {
+  background: var(--color-primary);
+  color: #ffffff;
+}
+
+/* Карточка работы над ошибками (Grammar Tip) */
+.grammar-feedback-card {
+  margin-top: 8px;
+  background: #FFF9E6;
+  border: 1.5px solid var(--color-accent-yellow);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  font-size: 13px;
+  color: #7A5300;
+}
+
+body.dark-mode .grammar-feedback-card {
+  background: #2D2616;
+  border-color: #7A5300;
+  color: #FFDE80;
+}
+
+.grammar-feedback-title {
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 4px;
+}
+
+/* Нижняя панель ввода чата */
+.chat-input-bar {
+  background: var(--color-bg);
+  border-top: 2px solid var(--color-card-border);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.chat-input-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.chat-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: var(--font-family);
+  font-size: 15px;
+  border: 2px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  background: var(--color-bg-page);
+  color: var(--color-text-main);
+  transition: border-color var(--transition-speed);
+  user-select: text;
+}
+
+.chat-input:focus {
+  border-color: var(--color-primary);
+  background: var(--color-bg);
+}
+
+/* ==========================================================================
+   SCREEN 2: TOPICS
+   ========================================================================== */
+
+.topics-header {
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--color-text-main);
+  margin-bottom: 4px;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.topics-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.topic-card {
+  background: var(--color-card-bg);
+  border: 2px solid var(--color-card-border);
+  box-shadow: 0 4px 0 var(--color-card-border-bottom);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform var(--transition-speed), border-color var(--transition-speed);
+}
+
+.topic-card:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--color-card-border-bottom);
+}
+
+.topic-card.selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+.topic-card-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topic-icon {
+  font-size: 20px;
+  width: 48px;
+  height: 48px;
+  background: var(--color-primary-soft);
+  border: 2px solid rgba(88, 204, 2, 0.25);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.topic-card.selected .topic-icon {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+}
+
+.topic-card-arrow {
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.topic-card:hover .topic-card-arrow,
+.topic-card:active .topic-card-arrow {
+  transform: translateX(3px);
+}
+
+.topic-info h3 {
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 3px;
+  color: var(--color-text-main);
+}
+
+.topic-info p {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.topic-level-badge {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.topic-level-badge.a1 { background: #E5F6DF; color: var(--color-primary-dark); }
+.topic-level-badge.b1 { background: #E1F5FE; color: var(--color-accent-blue-dark); }
+.topic-level-badge.b2 { background: #FFF3E0; color: var(--color-accent-orange-dark); }
+
+/* ==========================================================================
+   SCREEN 3: SETTINGS
+   ========================================================================== */
+
+.settings-group {
+  margin-bottom: 20px;
+}
+
+.settings-group-title {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  letter-spacing: 0.6px;
+  margin-bottom: 8px;
+}
+
+.settings-card {
+  background: var(--color-card-bg);
+  border: 2px solid var(--color-card-border);
+  box-shadow: 0 4px 0 var(--color-card-border-bottom);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.input-label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-label-link {
+  color: var(--color-accent-blue);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.settings-input, .settings-select {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  border: 2px solid var(--color-card-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  background: var(--color-bg-page);
+  color: var(--color-text-main);
+  user-select: text;
+}
+
+.settings-input:focus, .settings-select:focus {
+  border-color: var(--color-primary);
+  background: var(--color-bg);
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--color-text-muted);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.status-badge::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.status-badge.ok {
+  background: #E5F6DF;
+  color: var(--color-primary-dark);
+}
+.status-badge.ok::before {
+  background-color: var(--color-primary);
+}
+
+.status-badge.empty {
+  background: #F0F0F0;
+  color: var(--color-text-muted);
+}
+.status-badge.empty::before {
+  background-color: var(--color-text-muted);
+}
+
+.status-badge.error {
+  background: #FEECEB;
+  color: var(--color-accent-red-dark);
+}
+.status-badge.error::before {
+  background-color: var(--color-accent-red);
+}
+
+/* Выбор уровня (Level Pills) */
+.level-pills-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.level-pill-btn {
+  padding: 10px 4px;
+  border: 2px solid var(--color-card-border);
+  box-shadow: 0 3px 0 var(--color-card-border-bottom);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  cursor: pointer;
+  text-align: center;
+}
+
+.level-pill-btn.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
+/* ==========================================================================
+   BOTTOM NAVIGATION BAR (TABS)
+   ========================================================================== */
+
+.bottom-nav {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--color-bg);
+  border-top: 2px solid var(--color-card-border);
+  height: 64px;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-shrink: 0;
+  z-index: 50;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.nav-tab-btn {
+  flex: 1;
+  height: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-family: var(--font-family);
+  color: #A0A0A0;
+  transition: color var(--transition-speed);
+}
+
+.nav-tab-icon {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  color: #A0A0A0;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.nav-tab-label {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.nav-tab-btn.active {
+  color: var(--color-primary);
+}
+
+.nav-tab-btn.active .nav-tab-icon {
+  color: var(--color-primary);
+  transform: scale(1.12);
+}
+
+/* ==========================================================================
+   TOAST NOTIFICATION
+   ========================================================================== */
+
+.toast-container {
+  position: fixed;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  pointer-events: none;
+}
+
+.toast {
+  background: var(--color-text-main);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.25s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   TYPING INDICATOR
+   ========================================================================== */
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 16px;
+}
+
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  animation: typingBounce 1.3s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.35; }
+  40% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ==========================================================================
+   AUDIO & MICROPHONE STATES
+   ========================================================================== */
+
+/* Пульсирующая запись микрофона */
+.btn-icon-3d.recording {
+  background-color: var(--color-accent-red) !important;
+  box-shadow: 0 var(--btn-3d-offset) 0 var(--color-accent-red-dark) !important;
+  animation: micPulse 0.9s infinite alternate ease-in-out !important;
+}
+
+@keyframes micPulse {
+  0% { transform: scale(1); filter: brightness(1); }
+  100% { transform: scale(1.15); filter: brightness(1.2); box-shadow: 0 0 16px rgba(255, 75, 75, 0.7) !important; }
+}
+
+/* Подсветка кнопки прослушивания во время речи */
+.audio-play-btn.playing {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary-dark);
+  animation: audioPulse 1.2s infinite ease-in-out;
+}
+
+@keyframes audioPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.75; }
+}
+
+/* ==========================================================================
+   PROGRESS & HISTORY SCREEN
+   ========================================================================== */
+
+.progress-stats-card {
+  background: var(--color-card-bg);
+  border: 2px solid var(--color-card-border);
+  box-shadow: 0 4px 0 var(--color-card-border-bottom);
+  border-radius: var(--radius-lg);
+  padding: 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.progress-stat-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+.progress-stat-value {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--color-primary);
+  line-height: 1.1;
+}
+
+.progress-stat-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progress-stat-divider {
+  width: 2px;
+  height: 32px;
+  background: var(--color-card-border);
+}
+
+.progress-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.clear-all-link {
+  background: none;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-accent-red);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.clear-all-link:hover, .clear-all-link:active {
+  background: #FEECEB;
+}
+
+.progress-sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.progress-session-card {
+  background: var(--color-card-bg);
+  border: 2px solid var(--color-card-border);
+  box-shadow: 0 4px 0 var(--color-card-border-bottom);
+  border-radius: var(--radius-lg);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+.progress-session-card:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--color-card-border-bottom);
+}
+
+.progress-session-card.active-session {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+
+.session-card-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+.session-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-soft);
+  border: 1.5px solid rgba(88, 204, 2, 0.3);
+  color: var(--color-primary);
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.progress-session-card.active-session .session-icon {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+.session-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.session-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.session-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.session-date {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.session-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+
+.session-badge {
+  background: #E5F6DF;
+  color: var(--color-primary-dark);
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.session-preview-text {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.session-delete-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  margin-left: 6px;
+  flex-shrink: 0;
+}
+
+.session-delete-btn:hover, .session-delete-btn:active {
+  background: #FEECEB;
+  color: var(--color-accent-red);
+  transform: scale(1.1);
+}
+
+.empty-history-state {
+  text-align: center;
+  padding: 36px 16px;
+  background: var(--color-card-bg);
+  border: 2px dashed var(--color-card-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text-muted);
+}
+
+.empty-history-icon {
+  font-size: 38px;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+
+.empty-history-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  margin-bottom: 4px;
+}
+
+.empty-history-desc {
+  font-size: 13px;
+  line-height: 1.4;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
