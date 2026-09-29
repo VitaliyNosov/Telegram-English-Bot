@@ -46,6 +46,9 @@
           <i class="fa-solid fa-star icon-duo-green"></i>
           <span id="stat-xp-val">120</span>
         </div>
+        <button type="button" id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle Light / Dark theme" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
       </div>
     </header>
 
@@ -220,6 +223,23 @@
       <div class="topics-header">
         <h2 class="section-title">Settings</h2>
         <p class="section-subtitle">Customize your AI model, voice and learning level</p>
+      </div>
+
+      <!-- Group: Theme & Appearance -->
+      <div class="settings-group">
+        <div class="settings-group-title">Theme & Appearance</div>
+        <div class="settings-card">
+          <div class="theme-select-row">
+            <button type="button" class="theme-option-btn active" data-theme="light">
+              <i class="fa-solid fa-sun icon-theme-sun"></i>
+              <span>Light (Classic)</span>
+            </button>
+            <button type="button" class="theme-option-btn" data-theme="dark">
+              <i class="fa-solid fa-moon icon-theme-moon"></i>
+              <span>Dark (#0E1621)</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <!-- Group 1: Google Gemini API (BYOK) -->

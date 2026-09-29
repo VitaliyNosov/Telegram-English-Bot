@@ -45,6 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentUser = window.telegramService.getUser();
   window.storageService.setUserId(currentUser.id);
 
+  // 1.1 Инициализация темы оформления (Light по умолчанию / Dark #0E1621)
+  initTheme();
+
   // Обновляем статистику в шапке
   initHeaderStats();
 
@@ -90,6 +93,74 @@ function addXP(amount = 10) {
   // Обновляем общий прогресс если открыт экран прогресса
   const progressXp = document.getElementById('progress-total-xp');
   if (progressXp) progressXp.textContent = updated.xp;
+}
+
+/* ==========================================================================
+   1.1 УПРАВЛЕНИЕ ТЕМОЙ ОФОРМЛЕНИЯ (LIGHT / DARK #0E1621)
+   ========================================================================== */
+function initTheme() {
+  const currentTheme = window.storageService.getTheme() || 'light';
+  applyThemeUI(currentTheme);
+
+  // Быстрый переключатель в шапке
+  const headerToggleBtn = document.getElementById('theme-toggle-btn');
+  if (headerToggleBtn) {
+    headerToggleBtn.addEventListener('click', () => {
+      const activeTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+      const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
+      switchTheme(newTheme);
+      window.telegramService.hapticImpact('medium');
+    });
+  }
+
+  // Выбор темы в настройках
+  const themeOptionBtns = document.querySelectorAll('.theme-option-btn');
+  themeOptionBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selectedTheme = btn.getAttribute('data-theme');
+      switchTheme(selectedTheme);
+      window.telegramService.hapticSelection();
+    });
+  });
+}
+
+function switchTheme(theme) {
+  window.storageService.setTheme(theme);
+  window.telegramService.setTheme(theme);
+  applyThemeUI(theme);
+  showToast(theme === 'dark' ? 'Dark theme enabled (#0E1621)' : 'Light theme enabled');
+}
+
+function applyThemeUI(theme) {
+  if (theme === 'dark') {
+    document.body.classList.add('dark-mode');
+  } else {
+    document.body.classList.remove('dark-mode');
+  }
+
+  // Обновляем иконку кнопки в шапке
+  const headerToggleBtn = document.getElementById('theme-toggle-btn');
+  if (headerToggleBtn) {
+    if (theme === 'dark') {
+      headerToggleBtn.innerHTML = '<i class="fa-solid fa-sun icon-theme-sun"></i>';
+      headerToggleBtn.setAttribute('title', 'Switch to Light Theme');
+      headerToggleBtn.setAttribute('aria-label', 'Switch to Light Theme');
+    } else {
+      headerToggleBtn.innerHTML = '<i class="fa-solid fa-moon icon-theme-moon"></i>';
+      headerToggleBtn.setAttribute('title', 'Switch to Dark Theme');
+      headerToggleBtn.setAttribute('aria-label', 'Switch to Dark Theme');
+    }
+  }
+
+  // Синхронизируем кнопки в экране настроек
+  const themeOptionBtns = document.querySelectorAll('.theme-option-btn');
+  themeOptionBtns.forEach(btn => {
+    if (btn.getAttribute('data-theme') === theme) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
 }
 
 /* ==========================================================================

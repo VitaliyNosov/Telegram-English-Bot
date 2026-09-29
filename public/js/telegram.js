@@ -48,12 +48,38 @@ class TelegramService {
     };
   }
 
-  // Применение темы
+  // Применение темы (предпочтение пользователя имеет наивысший приоритет)
   applyTheme() {
-    if (this.tg && this.tg.colorScheme === 'dark') {
+    let theme = 'light';
+    if (window.storageService) {
+      theme = window.storageService.getTheme() || 'light';
+    } else {
+      try {
+        theme = localStorage.getItem('engbot_theme') || 'light';
+      } catch (e) {
+        theme = 'light';
+      }
+    }
+    this.setTheme(theme);
+  }
+
+  setTheme(theme) {
+    if (theme === 'dark') {
       document.body.classList.add('dark-mode');
+      if (this.tg) {
+        try {
+          if (this.tg.setHeaderColor) this.tg.setHeaderColor('#17212B');
+          if (this.tg.setBackgroundColor) this.tg.setBackgroundColor('#0E1621');
+        } catch (e) {}
+      }
     } else {
       document.body.classList.remove('dark-mode');
+      if (this.tg) {
+        try {
+          if (this.tg.setHeaderColor) this.tg.setHeaderColor('#58CC02');
+          if (this.tg.setBackgroundColor) this.tg.setBackgroundColor('#F7F7F7');
+        } catch (e) {}
+      }
     }
   }
 

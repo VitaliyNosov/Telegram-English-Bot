@@ -4,14 +4,33 @@
  * Отправляет инлайн-кнопку для запуска Telegram Mini App.
  */
 
+const fs = require('fs');
+const path = require('path');
+
+// Автозагрузка из .env файла
+const envPath = path.resolve(process.cwd(), '.env');
+if (fs.existsSync(envPath)) {
+  try {
+    const envContent = fs.readFileSync(envPath, 'utf8');
+    envContent.split(/\r?\n/).forEach(line => {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith('#')) {
+        const [key, ...vals] = trimmed.split('=');
+        if (key && vals.length > 0) {
+          process.env[key.trim()] = vals.join('=').trim().replace(/^["']|["']$/g, '');
+        }
+      }
+    });
+  } catch (e) {}
+}
+
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const WEB_APP_URL = 'https://vitaliynosov.github.io/Telegram-English-Bot/';
 
 if (!token) {
   console.error('❌ ОШИБКА: Переменная TELEGRAM_BOT_TOKEN не задана.');
-  console.log('Задайте её перед запуском:');
-  console.log('PowerShell: $env:TELEGRAM_BOT_TOKEN="ВАШ_ТОКЕН"; node bot.js');
-  console.log('CMD/Bash:   TELEGRAM_BOT_TOKEN=ВАШ_ТОКЕН node bot.js');
+  console.log('Создайте файл .env со строкой: TELEGRAM_BOT_TOKEN=ВАШ_ТОКЕН');
+  console.log('Или в Git Bash выполните: export TELEGRAM_BOT_TOKEN="ВАШ_ТОКЕН"');
   process.exit(1);
 }
 

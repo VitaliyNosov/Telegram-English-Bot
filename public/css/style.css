@@ -52,21 +52,21 @@
   --transition-speed: 0.15s;
 }
 
-/* --- Поддержка тёмной темы (Dark Mode / Telegram Dark) --- */
+/* --- Поддержка тёмной темы (#0E1621 с благородными оттенками) --- */
 body.dark-mode {
-  --color-bg: #131F24;
-  --color-bg-page: #0F171A;
-  --color-card-bg: #1B2A32;
-  --color-card-border: #2B3D47;
-  --color-card-border-bottom: #202F38;
+  --color-bg: #17212B;                    /* Поверхность контейнера, хедера, таббара */
+  --color-bg-page: #0E1621;               /* Глубокий фон страницы Telegram */
+  --color-card-bg: #17212B;               /* Карточки контента */
+  --color-card-border: #242F3D;          /* Границы и разделители */
+  --color-card-border-bottom: #131B24;   /* 3D-тень карточек */
 
-  --color-text-main: #FFFFFF;
-  --color-text-muted: #9BB0BA;
-  --color-text-light: #6A7E88;
+  --color-text-main: #F5F7FA;             /* Высококонтрастный белый текст */
+  --color-text-muted: #7F91A4;            /* Вторичный цвет Telegram dark */
+  --color-text-light: #52677B;            /* Подписи и метки */
 
-  --color-primary-soft: rgba(88, 204, 2, 0.2);
-  --color-accent-orange-soft: rgba(255, 150, 0, 0.2);
-  --color-accent-blue-soft: rgba(28, 176, 246, 0.2);
+  --color-primary-soft: rgba(88, 204, 2, 0.16);
+  --color-accent-orange-soft: rgba(255, 150, 0, 0.18);
+  --color-accent-blue-soft: rgba(28, 176, 246, 0.18);
 }
 
 /* ==========================================================================
@@ -192,6 +192,31 @@ body {
   background: var(--color-bg-page);
   border: 1.5px solid var(--color-card-border);
   color: var(--color-text-main);
+}
+
+.theme-toggle-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-page);
+  border: 1.5px solid var(--color-card-border);
+  color: var(--color-text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform var(--transition-speed), background-color var(--transition-speed), border-color var(--transition-speed), color var(--transition-speed);
+  outline: none;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.92);
 }
 
 /* ==========================================================================
@@ -1197,4 +1222,138 @@ body.dark-mode .grammar-feedback-card {
   max-width: 260px;
   margin: 0 auto;
 }
+
+/* ==========================================================================
+   THEME SWITCHER & APPEARANCE (SETTINGS SCREEN)
+   ========================================================================== */
+
+.theme-select-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.theme-option-btn {
+  padding: 12px 14px;
+  border: 2px solid var(--color-card-border);
+  box-shadow: 0 3px 0 var(--color-card-border-bottom);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--transition-speed);
+}
+
+.theme-option-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--color-card-border-bottom);
+}
+
+.theme-option-btn.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
+.icon-theme-sun {
+  color: var(--color-accent-orange);
+}
+
+.icon-theme-moon {
+  color: var(--color-accent-blue);
+}
+
+/* ==========================================================================
+   DARK THEME COMPONENT REFINEMENTS (#0E1621 & SHADES)
+   ========================================================================== */
+
+body.dark-mode #app-container {
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .theme-option-btn.active {
+  color: var(--color-primary-light);
+}
+
+body.dark-mode .topic-pill {
+  color: var(--color-primary-light);
+}
+
+body.dark-mode .banner-action-btn.new-chat {
+  color: var(--color-primary-light);
+}
+
+body.dark-mode .level-pill-btn.active {
+  color: var(--color-primary-light);
+}
+
+body.dark-mode .status-badge.ok {
+  background: rgba(88, 204, 2, 0.2);
+  color: #79D600;
+}
+
+body.dark-mode .status-badge.empty {
+  background: #242F3D;
+  color: #7F91A4;
+}
+
+body.dark-mode .status-badge.error {
+  background: rgba(255, 75, 75, 0.2);
+  color: #FF7B7B;
+}
+
+body.dark-mode .topic-level-badge.a1 {
+  background: rgba(88, 204, 2, 0.2);
+  color: #79D600;
+}
+
+body.dark-mode .topic-level-badge.b1 {
+  background: rgba(28, 176, 246, 0.2);
+  color: #64D2FF;
+}
+
+body.dark-mode .topic-level-badge.b2 {
+  background: rgba(255, 150, 0, 0.2);
+  color: #FFAA33;
+}
+
+body.dark-mode .session-badge {
+  background: rgba(88, 204, 2, 0.2);
+  color: #79D600;
+}
+
+body.dark-mode .nav-tab-btn {
+  color: #6A7E88;
+}
+
+body.dark-mode .nav-tab-btn .nav-tab-icon {
+  color: #6A7E88;
+}
+
+body.dark-mode .nav-tab-btn.active {
+  color: var(--color-primary);
+}
+
+body.dark-mode .nav-tab-btn.active .nav-tab-icon {
+  color: var(--color-primary);
+}
+
+body.dark-mode .session-delete-btn:hover,
+body.dark-mode .session-delete-btn:active {
+  background: rgba(255, 75, 75, 0.2);
+  color: #FF7B7B;
+}
+
+body.dark-mode .clear-all-link:hover,
+body.dark-mode .clear-all-link:active {
+  background: rgba(255, 75, 75, 0.2);
+}
+
 

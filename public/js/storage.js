@@ -46,6 +46,25 @@ class StorageService {
     }
   }
 
+  getTheme() {
+    try {
+      return localStorage.getItem('engbot_theme') || localStorage.getItem(`${this.prefix}theme`) || 'light';
+    } catch (e) {
+      return 'light';
+    }
+  }
+
+  setTheme(theme) {
+    try {
+      const mode = theme === 'dark' ? 'dark' : 'light';
+      localStorage.setItem('engbot_theme', mode);
+      localStorage.setItem(`${this.prefix}theme`, mode);
+      return mode;
+    } catch (e) {
+      return 'light';
+    }
+  }
+
   getDefaultSettings() {
     return {
       apiKey: '',
